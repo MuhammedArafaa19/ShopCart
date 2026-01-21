@@ -46,7 +46,7 @@ export async function createCheckoutSession(
         enabled: true,
       },
       success_url: `${
-        process.env.NEXT_PUBLIC_BASE_URL
+        process.env.URL
       }/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart`,
       line_items: items?.map((item) => ({
