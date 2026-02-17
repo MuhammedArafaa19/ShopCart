@@ -44,21 +44,44 @@ const BRAND_QUERY = defineQuery(`*[_type == "product" && slug.current == $slug]{
 //     product->
 //   }
 // }`);
-const MY_ORDERS_QUERY = defineQuery(`
-*[_type == 'order' && clerkUserId == $userId] | order(_createdAt desc){
+// const MY_ORDERS_QUERY = defineQuery(`
+// *[_type == 'order' && clerkUserId == $userId] | order(_createdAt desc){
+//   _id,
+//   orderNumber,
+//   total,
+//   status,
+//   _createdAt,
+//   customerName,
+//   customerEmail,
+//   invoiceNumber,
+//   products[] {
+//     ...,
+//     product->
+//   }
+// }`);
+import { defineQuery } from "next-sanity";
+
+export const MY_ORDERS_QUERY = defineQuery(`
+*[_type == 'order' && clerkUserId == $userId] | order(orderDate desc){
   _id,
   orderNumber,
-  total,
-  status,
-  _createdAt,
   customerName,
-  customerEmail,
-  invoiceNumber,
+  email,
+  totalPrice,
+  currency,
+  status,
+  orderDate,
+  invoice {
+    number,
+    hosted_invoice_url
+  },
   products[] {
     ...,
     product->
   }
-}`);
+}
+`);
+
 const GET_ALL_BLOG = defineQuery(
   `*[_type == 'blog'] | order(publishedAt desc)[0...$quantity]{
   ...,  
