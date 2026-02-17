@@ -59,7 +59,7 @@ const BRAND_QUERY = defineQuery(`*[_type == "product" && slug.current == $slug]{
 //     product->
 //   }
 // }`);
-import { defineQuery } from "next-sanity";
+
 
 export const MY_ORDERS_QUERY = defineQuery(`
 *[_type == 'order' && clerkUserId == $userId] | order(orderDate desc){
