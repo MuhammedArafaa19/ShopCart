@@ -25,11 +25,24 @@ const BRAND_QUERY = defineQuery(`*[_type == "product" && slug.current == $slug]{
   "brandName": brand->title
   }`);
 
+// const MY_ORDERS_QUERY =
+//   defineQuery(`*[_type == 'order' && clerkUserId == $userId] | order(orderData desc){
+// ...,products[]{
+//   ...,product->
+// }
+// }`);
 const MY_ORDERS_QUERY =
-  defineQuery(`*[_type == 'order' && clerkUserId == $userId] | order(orderData desc){
-...,products[]{
-  ...,product->
-}
+  defineQuery(`*[_type == 'order' && clerkUserId == $userId] | order(_createdAt desc){
+  _id,
+  orderNumber,
+  total,
+  status,
+  clerkUserId,
+  _createdAt,
+  products[] {
+    ..., 
+    product->
+  }
 }`);
 const GET_ALL_BLOG = defineQuery(
   `*[_type == 'blog'] | order(publishedAt desc)[0...$quantity]{
